@@ -1,0 +1,64 @@
+<div class="trip-inputs">
+  <div *ngFor="let trip of trips" class="trip-row">
+    <input [(ngModel)]="trip.start" placeholder="Start Point" />
+    <input [(ngModel)]="trip.end" placeholder="End Point" />
+  </div>
+  <button (click)="addTrip()">Add Trip</button>
+</div>
+
+<div class="trip-canvas-wrapper">
+  <svg [attr.width]="svgWidth" height="250">
+    <defs>
+      <marker
+        id="arrowhead"
+        markerWidth="10"
+        markerHeight="7"
+        refX="10"
+        refY="3.5"
+        orient="auto"
+      >
+        <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+      </marker>
+    </defs>
+
+    <g *ngFor="let trip of processedTrips">
+      <g [ngSwitch]="trip.type">
+        <line
+          *ngSwitchCase="'continued'"
+          [attr.x1]="trip.x1"
+          [attr.y1]="trip.y1"
+          [attr.x2]="trip.x2"
+          [attr.y2]="trip.y2"
+          [attr.stroke]="trip.color"
+          stroke-width="2"
+        />
+
+        <path
+          *ngSwitchCase="'arrow'"
+          [attr.d]="trip.path"
+          fill="none"
+          [attr.stroke]="trip.color"
+          stroke-width="2"
+          marker-end="url(#arrowhead)"
+        />
+
+        <path
+          *ngSwitchCase="'loop'"
+          [attr.d]="trip.path"
+          fill="none"
+          [attr.stroke]="trip.color"
+          stroke-width="2"
+        />
+      </g>
+
+      <text
+        [attr.x]="trip.labelX"
+        [attr.y]="trip.labelY"
+        font-size="12"
+        fill="#000"
+      >
+        {{ trip.label }}
+      </text>
+    </g>
+  </svg>
+</div>

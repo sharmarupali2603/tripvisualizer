@@ -1,0 +1,19 @@
+.trip-inputs {
+  margin-bottom: 20px;
+}
+.trip-row {
+  margin-bottom: 8px;
+}
+input {
+  padding: 5px;
+  margin-right: 10px;
+}
+.trip-canvas-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+svg {
+  display: block;
+}
